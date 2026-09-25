@@ -256,6 +256,9 @@ h2{font-size:19px}
 
 /* sheet */
 .sheet-scrim{position:fixed;inset:0;background:#00000088;backdrop-filter:blur(3px);z-index:60;display:flex;align-items:flex-end}
+/* the [hidden] attribute loses to any author display rule — force it to win */
+.sheet-scrim[hidden],.sheet-scrim.closed{display:none !important}
+[hidden]{display:none !important}
 .sheet{
   width:100%;max-height:88svh;overflow:auto;background:var(--bg2);
   border-radius:24px 24px 0 0;border-top:1px solid var(--line);

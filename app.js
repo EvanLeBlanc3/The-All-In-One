@@ -2581,9 +2581,15 @@ function openSheet() {
   $('#optSound').checked = !!U.DB.opts.sound;
   $('#optHaptic').checked = !!U.DB.opts.haptic;
   $('#optConfetti').checked = !!U.DB.opts.confetti;
-  $('#sheet').hidden = false;
+  var s = $('#sheet');
+  s.hidden = false; s.classList.remove('closed'); s.style.display = 'flex';
 }
-function closeSheet() { $('#sheet').hidden = true; }
+function closeSheet() {
+  var s = $('#sheet');
+  s.hidden = true; s.classList.add('closed'); s.style.display = 'none';
+}
+/* hard guarantee: the sheet is shut on every boot, whatever the CSS does */
+closeSheet();
 $('#btnSettings').addEventListener('click', function () { U.soundTap(); openSheet(); });
 $('#btnCloseSheet').addEventListener('click', function () { U.soundTap(); closeSheet(); });
 $('#sheet').addEventListener('click', function (e) { if (e.target.id === 'sheet') closeSheet(); });
@@ -2621,8 +2627,15 @@ window.__tvDay = U.today();
 
 /* service worker + offline-ready badge */
 if ('serviceWorker' in navigator) {
+  var reloading = false;
+  /* when a new version takes over, reload once so you never run stale code */
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (reloading) return; reloading = true;
+    location.reload();
+  });
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('./sw.js').then(function () {
+    navigator.serviceWorker.register('./sw.js').then(function (reg) {
+      reg.update();
       return navigator.serviceWorker.ready;
     }).then(function () {
       var f = $('#footStat');

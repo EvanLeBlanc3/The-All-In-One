@@ -1,5 +1,5 @@
 /* Tallyverse service worker — offline-first, no network required after install */
-var CACHE = 'tallyverse-v1';
+var CACHE = 'tallyverse-v2';
 var ASSETS = [
   './',
   './index.html',
