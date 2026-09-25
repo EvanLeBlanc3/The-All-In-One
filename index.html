@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+<title>Tallyverse</title>
+<meta name="description" content="50 tiny trackers. One offline app." />
+<link rel="manifest" href="./manifest.webmanifest" />
+<meta name="theme-color" content="#0d1225" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Tallyverse" />
+<link rel="apple-touch-icon" href="./icons/icon-180.png" />
+<link rel="icon" href="./icons/icon-192.png" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ HOME ============ -->
+  <section id="home" class="screen active">
+    <header class="hdr">
+      <div class="hdr-row">
+        <div class="brand">
+          <span class="brand-mark">|||&#8202;&#8260;</span>
+          <div>
+            <h1>Tallyverse</h1>
+            <p class="tagline" id="tagline">50 tiny trackers. Zero cloud.</p>
+          </div>
+        </div>
+        <button class="icon-btn" id="btnSettings" aria-label="Settings">&#9881;</button>
+      </div>
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Search 50 trackers…" autocomplete="off" autocorrect="off" spellcheck="false" />
+        <button class="clear-btn" id="clearSearch" aria-label="Clear">&#10005;</button>
+      </div>
+      <div class="chips" id="chips"></div>
+    </header>
+    <main id="homeList" class="home-list"></main>
+    <footer class="foot">
+      <span id="footStat">—</span>
+    </footer>
+  </section>
+
+  <!-- ============ TRACKER ============ -->
+  <section id="tracker" class="screen">
+    <header class="hdr t-hdr">
+      <div class="hdr-row">
+        <button class="icon-btn" id="btnBack" aria-label="Back">&#8249;</button>
+        <div class="t-title">
+          <h2 id="tName">Tracker</h2>
+          <p id="tBlurb" class="tagline"></p>
+        </div>
+        <button class="icon-btn" id="btnStar" aria-label="Favorite">&#9734;</button>
+      </div>
+    </header>
+    <main id="tBody" class="t-body"></main>
+    <div class="t-actions">
+      <button class="ghost-btn" id="btnExport">Export PDF</button>
+      <button class="ghost-btn danger" id="btnClear">Clear this tracker</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ SETTINGS SHEET ============ -->
+<div id="sheet" class="sheet-scrim" hidden>
+  <div class="sheet">
+    <div class="sheet-grab"></div>
+    <h3>Settings</h3>
+    <label class="row-toggle"><span>Warm sound on save</span><input type="checkbox" id="optSound" /></label>
+    <label class="row-toggle"><span>Haptic buzz</span><input type="checkbox" id="optHaptic" /></label>
+    <label class="row-toggle"><span>Confetti on milestones</span><input type="checkbox" id="optConfetti" /></label>
+    <div class="sheet-sep"></div>
+    <button class="ghost-btn wide" id="btnBackup">Back up all data (.json)</button>
+    <button class="ghost-btn wide" id="btnRestore">Restore from backup</button>
+    <input type="file" id="fileRestore" accept="application/json,.json" hidden />
+    <button class="ghost-btn wide" id="btnExportAll">Export everything to PDF</button>
+    <div class="sheet-sep"></div>
+    <button class="ghost-btn wide danger" id="btnNuke">Delete ALL data</button>
+    <p class="fineprint">Everything lives in this device's local storage. Nothing is uploaded, ever. Delete the app and the data goes with it, so back it up now and then.</p>
+    <button class="primary-btn wide" id="btnCloseSheet">Done</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<div id="printArea" class="print-area"></div>
+
+<script src="./app.js"></script>
+</body>
+</html>
